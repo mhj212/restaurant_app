@@ -1,0 +1,47 @@
+
+
+<div id="user_nav">
+
+  <%if current_user %>
+    Signed in as <%= current_user.email %>.  Not you?
+    <%= link_to "Sign out", destroy_user_session_path %>
+  <% else %>
+    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "Sign in", new_user_session_path %>
+   <% end %>
+
+</div>  
+
+
+<h2>Restaurant Search</h2>
+<form action="/restaurants/search" method="get">
+  <input type="text" name="name" placeholder="Name">
+  <button type="submit">go</button>
+</form>
+
+<h1>Favorite restaurants</h1>
+       <ul>
+		<% @restaurants.each do |restaurant| %>
+			<li>
+           <a href="/restaurants/show/<%= restaurant.id %>"><%= restaurant.name %></a>
+
+
+           <a href="/restaurants/delete/<%= restaurant.id %>">     delete</a>
+			</li>
+
+			<% end %>
+		</ul> 
+
+
+<br>
+
+   <h2>Create Favorite Restaurant</h2>
+   <form action='/restaurants/create/' method="POST">
+   <br>
+   <input type="text" name="new_restaurant" placeholder="New restaurant name"><br>
+   <input type="text" name="new_rating" placeholder="On a scale of 0 to 10"> <br>
+   <input type="text" name="new_chef" placeholder="Chef Name"><br>
+   
+  <button>Create</button> 
+
+  <br><br>
+  <a href="/restaurants/guide">Ratings Guide</a>

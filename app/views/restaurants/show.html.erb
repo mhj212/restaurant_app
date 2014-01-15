@@ -1,0 +1,162 @@
+
+ 
+<form action="/restaurants/search" method="get">
+  <input type="text" name="name" placeholder="Name">
+  <button type="submit">go</button>
+</form>
+
+
+
+<h1><%= @restaurant_hash["businesses"][0]["name"]%></h1>
+<h3>Cuisine type: <%= @restaurant_hash['businesses'][0]["categories"][0]["category_filter"].capitalize%></h3>
+
+<h3>Chef: <%= @restaurant.chef.name %></h3>
+
+<!-- Total Average -->
+<% if @michelin_rating == nil && @nyt_rating == nil %>
+<% @total_rating = @yelp_rating %> 
+<h4>Total Rating: <%= @total_rating %></h4>
+
+
+
+<% elsif @michelin_rating != nil && @nyt_rating == nil %>
+<% @total_rating = (@yelp_rating + (Restaurant.find_by_name(@restaurant_hash["businesses"][0]["name"]).rating*10) + @michelin_rating) / 3 %> 
+<h4>Total Rating: <%= @total_rating %></h4>
+
+<% elsif @michelin_rating == nil && @nyt_rating != nil %>
+<% @total_rating = (@yelp_rating + (Restaurant.find_by_name(@restaurant_hash["businesses"][0]["name"]).rating*10) + @nyt_rating) / 3 %> 
+<h4>Total Rating: <%= @total_rating %></h4>
+
+<% elsif @michelin_rating != nil && @nyt_rating != nil %>
+<% @total_rating = (@yelp_rating + (Restaurant.find_by_name(@restaurant_hash["businesses"][0]["name"]).rating*10) + @michelin_rating + @nyt_rating) / 4 %> 
+<h4>Total Rating: <%= @total_rating %></h4>
+
+<% end %>
+
+
+<ul>
+        <!-- YELP -->
+    <li>Yelp user average rating: <%= @restaurant_hash["businesses"][0]["avg_rating"] %></li>
+    <li><img src="<%= @restaurant_hash["businesses"][0]['rating_img_url']%>"/></li>
+
+   <!-- Michelin Guide NYC 2014 -->
+   <% if @michelin[@restaurant_name_pre_gsub] %>
+
+       <li>Michelin Stars: <%=@michelin[@restaurant_name_pre_gsub]%></li>
+
+       <% @michelin[@restaurant_name_pre_gsub].times do %>
+       <img width=50px height=50px src="/michelin_star.jpeg">
+       <% end %>
+   <% else %>
+
+       <li><% %>Michelin Stars: 0</li>
+   <% end %>
+
+
+  <!-- NYTimes three stars and four stars -->
+   <% if @nyt[@restaurant_name_pre_gsub] %>
+
+       <li>New York Times Stars: <%=@nyt[@restaurant_name_pre_gsub]%></li>
+
+       <% @nyt[@restaurant_name_pre_gsub].times do %>
+
+       <img width=50px height=50px src="/star_gold.jpeg">
+       <% end %>
+   <% else %>
+
+       <li><% %>The New York Times has either not reviewed this restaurant or it has zero stars.</li>
+   <% end %>
+
+</ul>
+
+<% if Restaurant.find_by_name(@restaurant_hash["businesses"][0]["name"]).rating %>
+
+<p>Your rating of this restaurant is: <%= Restaurant.find_by_name(@restaurant_hash["businesses"][0]["name"]).rating %> out of 10</p>
+
+<h3>Change your rating?</h3>
+<h5>On a scale of 0 to 10 (10 is perfect, 0 is terrible)
+<form action="/restaurants/ratings" method="POST">
+<input type="hidden" name="user_id" value="<%= Restaurant.find_by_name(@restaurant_hash["businesses"][0]["name"]).id %>">
+<input type="text" name="user_rating">
+<input type="submit" value="submit">
+</form>
+
+<% else %>
+
+<h3>What is your rating?</h3>
+<h5>On a scale of 0 to 10 (10 is perfect, 0 is terrible)
+<form action="/restaurants/ratings/" method="POST">
+<input type="text" name="user_rating">
+<input type="submit" value="submit">
+</form>
+
+<% end %>
+
+<!-- select tag route-->
+<!-- <select>
+  <option value="10">10 Perfect</option>
+  <option value="9">9</option>
+  <option value="8">8</option>
+  <option value="7">7</option>
+  <option value="6">6</option>
+  <option value="5">5 Okay</option>
+  <option value="4">4</option>
+  <option value="3">3</option>
+  <option value="2">2</option>
+  <option value="1">1</option>
+  <option value="0">0 Fucking terrible</option>
+</select>
+ -->
+
+<!-- radio button rating route -->
+<!-- form>
+<input type="radio" name="user_rating" value="10">10 Perfect
+<input type="radio" name="user_rating" value="9">9
+<input type="radio" name="user_rating" value="8">8
+<input type="radio" name="user_rating" value="7">7
+<input type="radio" name="user_rating" value="6">6
+<input type="radio" name="user_rating" value="5">5 Okay
+<input type="radio" name="user_rating" value="4">4
+<input type="radio" name="user_rating" value="3">3
+<input type="radio" name="user_rating" value="2">2
+<input type="radio" name="user_rating" value="1">1
+<input type="radio" name="user_rating" value="0">0 Fucking terrible
+</form> -->
+
+<h3>Featured Dish(es)</h3>
+<% @restaurant.dishes.each do |dish|%>
+<p><%= dish.name %></p>
+<% end %>
+
+<h3>Add Dish to restaurant</h3>
+   <form action='/restaurants/createdish/' method="POST">
+   <br>
+   <input type="text" name="new_dish" placeholder="New dish name"><br>
+   <input type="hidden" name="new_restaurant_id" value="<%= @restaurant.id%>">  <br>
+  <button>Create</button> 
+
+<h4></h4>
+
+<h3>Favorite restaurants</h3>
+       <ul>
+    <% @restaurants.each do |restaurant| %>
+      <li>
+           <a href="/restaurants/show/<%= restaurant.id %>"><%= restaurant.name %></a>
+            <a href="/restaurants/delete/<%= restaurant.id %>">     delete</a>
+      </li>
+      <% end %>
+    </ul> 
+
+
+   <h2>Create Favorite Restaurant</h2>
+   <form action='/restaurants/create/' method="POST">
+   <br>
+   <input type="text" name="new_restaurant" placeholder="New restaurant name"><br>
+   <input type="text" name="new_rating" placeholder="On a scale of 0 to 10">  <br>
+   <input type="text" name="new_chef" placeholder="Chef Name"><br>
+  <button>Create</button> 
+
+
+  <br><br>
+  <a href="/restaurants/guide">Ratings Guide</a>
+
