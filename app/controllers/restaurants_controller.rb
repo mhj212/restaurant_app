@@ -7,12 +7,24 @@ class RestaurantsController < ApplicationController
    @dishes = Dish.all
   end
 
+  def favorites
+   @restaurants = Restaurant.all
+  end
+
   def createdish
     d = Dish.create({
     name: params[:new_dish],
     restaurant_id: params[:new_restaurant_id]
     })
     redirect_to :back
+  end
+
+  def deletedish
+   id = params[:id]
+   @dish = Dish.find(id)
+   @dish.delete
+   @dish.save!
+   redirect_to :back
   end
 
   def ratings
@@ -47,7 +59,7 @@ class RestaurantsController < ApplicationController
         })
 
 
-    redirect_to '/'
+    redirect_to :back
   end
     def create2
     new_chef = Chef.create({
@@ -821,6 +833,7 @@ class RestaurantsController < ApplicationController
     @nyt["delposto"] = 4
     @nyt["eleven madison park"] = 4
     @nyt["jean georges"] = 4
+    @nyt["jean-georges"] = 4
     @nyt["le bernardin"] = 4
     @nyt["per se"] = 4
     @nyt["sushi nakazawa"] = 4
@@ -1586,6 +1599,7 @@ end
     @nyt["delposto"] = 4
     @nyt["eleven madison park"] = 4
     @nyt["jean georges"] = 4
+    @nyt["jean-georges"] = 4
     @nyt["le bernardin"] = 4
     @nyt["per se"] = 4
     @nyt["sushi nakazawa"] = 4

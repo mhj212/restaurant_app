@@ -1,47 +1,48 @@
+<div id="container">
+<div class="nav_bar">
+  <a href="/">FOODIEANA JONES</a>
 
 
-<div id="user_nav">
+
+  <div class="search_bar">
+  <form action="/restaurants/search" method="get">
+  <input type="text" name="name" placeholder="Restaurant Search">
+    <button type="submit">go</button>
+  </form>
+  </div> <!-- SEARCH BAR -->
+
+     <div class="links_bar">
+  	
+  		<a href="/restaurants/favorites">Favorite Restaurants</a>
+  		<a href="/restaurants/guide">Ratings Guide</a>
+
+
+  </div><!-- links bar -->
+</div> <!-- NAV BAR -->
+
+  <div class="devise_nav">
 
   <%if current_user %>
     Signed in as <%= current_user.email %>.  Not you?
-    <%= link_to "Sign out", destroy_user_session_path %>
+    <%= link_to "Sign out", destroy_user_session_path, method: "delete" %>
   <% else %>
     <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "Sign in", new_user_session_path %>
    <% end %>
 
-</div>  
+  </div> <!-- devise nav -->
 
 
-<h2>Restaurant Search</h2>
-<form action="/restaurants/search" method="get">
-  <input type="text" name="name" placeholder="Name">
-  <button type="submit">go</button>
-</form>
-
-<h1>Favorite restaurants</h1>
-       <ul>
-		<% @restaurants.each do |restaurant| %>
-			<li>
-           <a href="/restaurants/show/<%= restaurant.id %>"><%= restaurant.name %></a>
-
-
-           <a href="/restaurants/delete/<%= restaurant.id %>">     delete</a>
-			</li>
-
-			<% end %>
-		</ul> 
-
-
-<br>
-
-   <h2>Create Favorite Restaurant</h2>
-   <form action='/restaurants/create/' method="POST">
-   <br>
-   <input type="text" name="new_restaurant" placeholder="New restaurant name"><br>
-   <input type="text" name="new_rating" placeholder="On a scale of 0 to 10"> <br>
-   <input type="text" name="new_chef" placeholder="Chef Name"><br>
-   
-  <button>Create</button> 
-
-  <br><br>
-  <a href="/restaurants/guide">Ratings Guide</a>
+  <div class="main_foodieana_jones">
+  <br><br><br><br>
+    <h1>FOODIEANA JONES</h1>
+    <h3>Search for NYC restaurants</h3>
+    <br>
+    <div class="main_search_bar">
+  <form action="/restaurants/search" method="get">
+  <input type="text" name="name" placeholder="Restaurant Search">
+    <button type="submit">Go</button>
+  </form>
+  </div> <!--MAIN SEARCH BAR -->
+    </div><!--main foodieana jones
+</div> <!-- container -->
+  

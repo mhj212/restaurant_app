@@ -31,10 +31,32 @@
 
   </div> <!-- devise nav -->
 
-<div class="devise_main">
-<p>Welcome <%= @email %>!</p>
 
-<p>You can confirm your account email through the link below:</p>
+<div class="main_favorites">
+<h1>Favorite restaurants</h1>
+       <ul>
+		<% @restaurants.each do |restaurant| %>
+			<li>
+           <a class="favorite_link"href="/restaurants/show/<%= restaurant.id %>"><%= restaurant.name %></a>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, :confirmation_token => @token) %></p>
-</div>
+
+           <a class="delete" href="/restaurants/delete/<%= restaurant.id %>">     delete</a>
+			</li>
+
+			<% end %>
+		</ul> 
+
+
+<br>
+
+   <h2>Create Favorite Restaurant</h2>
+   <form action='/restaurants/create/' method="POST">
+   <br>
+   <input type="text" name="new_restaurant" placeholder="New restaurant name"><br>
+   <input type="text" name="new_rating" placeholder="On a scale of 0 to 10"><br>
+   <input type="text" name="new_chef" placeholder="Chef Name"><br>
+  <button>Create</button> 
+ </form>  
+
+
+  </div><!--mainfavorites-->

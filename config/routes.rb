@@ -10,7 +10,11 @@ post '/restaurants/create2' => 'restaurants#create'
 get '/restaurants/guide' => 'restaurants#guide'
 get '/restaurants/delete/:id' => 'restaurants#delete'
 
+get '/restaurants/deletedish/:id' => 'restaurants#deletedish'
+
 post '/restaurants/ratings/' => 'restaurants#ratings'
+
+get '/restaurants/favorites' => 'restaurants#favorites'
 
 post 'restaurants/createdish' => 'restaurants#createdish'
 

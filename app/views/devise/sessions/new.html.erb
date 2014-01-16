@@ -1,3 +1,37 @@
+
+<div class="nav_bar">
+  <a href="/">FOODIEANA JONES</a>
+
+
+
+  <div class="search_bar">
+  <form action="/restaurants/search" method="get">
+  <input type="text" name="name" placeholder="Restaurant Search">
+    <button type="submit">go</button>
+  </form>
+  </div> <!-- SEARCH BAR -->
+
+     <div class="links_bar">
+    
+      <a href="/restaurants/favorites">Favorite Restaurants</a>
+      <a href="/restaurants/guide">Ratings Guide</a>
+
+
+  </div><!-- links bar -->
+</div> <!-- NAV BAR -->
+
+  <div class="devise_nav">
+
+  <%if current_user %>
+    Signed in as <%= current_user.email %>.  Not you?
+    <%= link_to "Sign out", destroy_user_session_path, method: "delete" %>
+  <% else %>
+    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "Sign in", new_user_session_path %>
+   <% end %>
+
+  </div> <!-- devise nav -->
+
+<div class="devise_main">
 <h2>Sign in</h2>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
@@ -15,3 +49,4 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+</div>

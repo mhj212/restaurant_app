@@ -1,34 +1,65 @@
 
- 
-<form action="/restaurants/search" method="get">
-  <input type="text" name="name" placeholder="Name">
-  <button type="submit">go</button>
-</form>
+<div class="nav_bar">
+  <a href="/">FOODIEANA JONES</a>
 
 
+
+  <div class="search_bar">
+  <form action="/restaurants/search" method="get">
+  <input type="text" name="name" placeholder="Restaurant Search">
+    <button type="submit">go</button>
+  </form>
+  </div> <!-- SEARCH BAR -->
+
+     <div class="links_bar">
+    
+      <a href="/restaurants/favorites">Favorite Restaurants</a>
+      <a href="/restaurants/guide">Ratings Guide</a>
+
+
+  </div><!-- links bar -->
+</div> <!-- NAV BAR -->
+
+  <div class="devise_nav">
+
+  <%if current_user %>
+    Signed in as <%= current_user.email %>.  Not you?
+    <%= link_to "Sign out", destroy_user_session_path, method: "delete" %>
+  <% else %>
+    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "Sign in", new_user_session_path %>
+   <% end %>
+
+  </div> <!-- devise nav -->
+
+<div class="main_show_page">
 
 <h1><%= @restaurant_hash["businesses"][0]["name"]%></h1>
 <h3>Cuisine type: <%= @restaurant_hash['businesses'][0]["categories"][0]["category_filter"].capitalize%></h3>
 
 <h3>Chef: <%= @restaurant.chef.name %></h3>
 
+<div class="rating_show"> 
 <!-- Total Average -->
 <% if @michelin_rating == nil && @nyt_rating == nil %>
 <% @total_rating = @yelp_rating %> 
+ <% @total_rating = @total_rating.to_i %>
 <h4>Total Rating: <%= @total_rating %></h4>
 
 
 
 <% elsif @michelin_rating != nil && @nyt_rating == nil %>
 <% @total_rating = (@yelp_rating + (Restaurant.find_by_name(@restaurant_hash["businesses"][0]["name"]).rating*10) + @michelin_rating) / 3 %> 
+ <% @total_rating = @total_rating.to_i %>
 <h4>Total Rating: <%= @total_rating %></h4>
 
 <% elsif @michelin_rating == nil && @nyt_rating != nil %>
 <% @total_rating = (@yelp_rating + (Restaurant.find_by_name(@restaurant_hash["businesses"][0]["name"]).rating*10) + @nyt_rating) / 3 %> 
+ <% @total_rating = @total_rating.to_i %>
 <h4>Total Rating: <%= @total_rating %></h4>
 
 <% elsif @michelin_rating != nil && @nyt_rating != nil %>
 <% @total_rating = (@yelp_rating + (Restaurant.find_by_name(@restaurant_hash["businesses"][0]["name"]).rating*10) + @michelin_rating + @nyt_rating) / 4 %> 
+ <% @total_rating = @total_rating.to_i %>
 <h4>Total Rating: <%= @total_rating %></h4>
 
 <% end %>
@@ -50,6 +81,7 @@
    <% else %>
 
        <li><% %>Michelin Stars: 0</li>
+       <br>
    <% end %>
 
 
@@ -60,7 +92,7 @@
 
        <% @nyt[@restaurant_name_pre_gsub].times do %>
 
-       <img width=50px height=50px src="/star_gold.jpeg">
+       <i class="fa fa-star"></i>
        <% end %>
    <% else %>
 
@@ -74,7 +106,7 @@
 <p>Your rating of this restaurant is: <%= Restaurant.find_by_name(@restaurant_hash["businesses"][0]["name"]).rating %> out of 10</p>
 
 <h3>Change your rating?</h3>
-<h5>On a scale of 0 to 10 (10 is perfect, 0 is terrible)
+<h5>On a scale of 0 to 10 (10 is perfect, 0 is terrible)</h5>
 <form action="/restaurants/ratings" method="POST">
 <input type="hidden" name="user_id" value="<%= Restaurant.find_by_name(@restaurant_hash["businesses"][0]["name"]).id %>">
 <input type="text" name="user_rating">
@@ -84,7 +116,7 @@
 <% else %>
 
 <h3>What is your rating?</h3>
-<h5>On a scale of 0 to 10 (10 is perfect, 0 is terrible)
+<h5>On a scale of 0 to 10 (10 is perfect, 0 is terrible)</h5>
 <form action="/restaurants/ratings/" method="POST">
 <input type="text" name="user_rating">
 <input type="submit" value="submit">
@@ -92,6 +124,7 @@
 
 <% end %>
 
+</div><!-- rating show-->
 <!-- select tag route-->
 <!-- <select>
   <option value="10">10 Perfect</option>
@@ -122,10 +155,22 @@
 <input type="radio" name="user_rating" value="1">1
 <input type="radio" name="user_rating" value="0">0 Fucking terrible
 </form> -->
+<div class="dishes_show">
 
-<h3>Featured Dish(es)</h3>
-<% @restaurant.dishes.each do |dish|%>
-<p><%= dish.name %></p>
+<% if @restaurant.dishes.name == nil %> 
+<h3>Add Dish to restaurant</h3>
+   <form action='/restaurants/createdish/' method="POST">
+   <br>
+   <input type="text" name="new_dish" placeholder="New dish name"><br>
+   <input type="hidden" name="new_restaurant_id" value="<%= @restaurant.id%>">  <br>
+  <button>Create</button> 
+  </form>
+<% else %>
+  
+  <h3>Featured Dish(es)</h3>
+  <% @restaurant.dishes.each do |dish|%>
+  <a><%= dish.name %></a><a class="deletedish" href="/restaurants/deletedish/<%= dish.id %>">     delete</a><br>
+  <% end %>
 <% end %>
 
 <h3>Add Dish to restaurant</h3>
@@ -134,29 +179,9 @@
    <input type="text" name="new_dish" placeholder="New dish name"><br>
    <input type="hidden" name="new_restaurant_id" value="<%= @restaurant.id%>">  <br>
   <button>Create</button> 
-
-<h4></h4>
-
-<h3>Favorite restaurants</h3>
-       <ul>
-    <% @restaurants.each do |restaurant| %>
-      <li>
-           <a href="/restaurants/show/<%= restaurant.id %>"><%= restaurant.name %></a>
-            <a href="/restaurants/delete/<%= restaurant.id %>">     delete</a>
-      </li>
-      <% end %>
-    </ul> 
+  </form>
+</div><!-- dishes show -->
 
 
-   <h2>Create Favorite Restaurant</h2>
-   <form action='/restaurants/create/' method="POST">
-   <br>
-   <input type="text" name="new_restaurant" placeholder="New restaurant name"><br>
-   <input type="text" name="new_rating" placeholder="On a scale of 0 to 10">  <br>
-   <input type="text" name="new_chef" placeholder="Chef Name"><br>
-  <button>Create</button> 
-
-
-  <br><br>
-  <a href="/restaurants/guide">Ratings Guide</a>
+</div><!-- main show page -->
 

@@ -1,21 +1,61 @@
-<h1>Ratings guide</h1>
+<div id="container">
+<div class="nav_bar">
+  <a href="/">FOODIEANA JONES</a>
 
+
+
+  <div class="search_bar">
+  <form action="/restaurants/search" method="get">
+  <input type="text" name="name" placeholder="Restaurant Search">
+    <button type="submit">go</button>
+  </form>
+  </div> <!-- SEARCH BAR -->
+
+     <div class="links_bar">
+    
+      <a href="/restaurants/favorites">Favorite Restaurants</a>
+      <a href="/restaurants/guide">Ratings Guide</a>
+
+
+  </div><!-- links bar -->
+</div> <!-- NAV BAR -->
+
+  <div class="devise_nav">
+
+  <%if current_user %>
+    Signed in as <%= current_user.email %>.  Not you?
+    <%= link_to "Sign out", destroy_user_session_path, method: "delete" %>
+  <% else %>
+    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "Sign in", new_user_session_path %>
+   <% end %>
+
+  </div> <!-- devise nav -->
+
+
+ <div class="main_guide">
+
+<h1>Ratings guide</h1>
+<br><br>
 <h2>Michelin Guide</h2>
 
 <ul>
-  <li><img width=25px height=25px src="/michelin_star.jpeg">One star indicates a very good restaurant in its category, offering cuisine prepared to a consistently high standard.</li>
-  <li><img width=25px height=25px src="/michelin_star.jpeg"><img width=25px height=25px src="/michelin_star.jpeg">Two stars denote excellent cuisine, skillfully and carefully crafted dishes of outstanding quality.</li>
-  <li><img width=25px height=25px src="/michelin_star.jpeg"><img width=25px height=25px src="/michelin_star.jpeg"><img width=25px height=25px src="/michelin_star.jpeg">Three stars reward exceptional cuisine where diners eat extremely well, often superbly. Distinctive dishes are precisely executed, using superlative ingredients.</li>
+  <li><img width=25px height=25px src="/michelin_star.jpeg"></li>
+  <li>One star indicates a very good restaurant in its category, offering cuisine prepared to a consistently high standard.</li>
+  <li><img width=25px height=25px src="/michelin_star.jpeg"><img width=25px height=25px src="/michelin_star.jpeg"></li>
+  <li>Two stars denote excellent cuisine, skillfully and carefully crafted dishes of outstanding quality.</li>
+  <li><img width=25px height=25px src="/michelin_star.jpeg"><img width=25px height=25px src="/michelin_star.jpeg"><img width=25px height=25px src="/michelin_star.jpeg"></li>
+  <li>Three stars reward exceptional cuisine where diners eat extremely well, often superbly. Distinctive dishes are precisely executed, using superlative ingredients.</li>
   
 </ul>
+<br><br>
 
 <h2>The New York Times</h2>
 
 <ul>
-   <li><img width=25px height=25px src="/star_gold.jpeg">Good</li>
-   <li><img width=25px height=25px src="/star_gold.jpeg"><img width=25px height=25px src="/star_gold.jpeg">Very Good</li>
-   <li><img width=25px height=25px src="/star_gold.jpeg"><img width=25px height=25px src="/star_gold.jpeg"><img width=25px height=25px src="/star_gold.jpeg">Excellent</li>
-   <li><img width=25px height=25px src="/star_gold.jpeg"><img width=25px height=25px src="/star_gold.jpeg"><img width=25px height=25px src="/star_gold.jpeg"><img width=25px height=25px src="/star_gold.jpeg">Extraordinary</li>
+   <li><i class="fa fa-star"></i> Good</li>
+   <li><i class="fa fa-star"></i><i class="fa fa-star"></i> Very Good</li>
+   <li><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> Excellent</li>
+   <li><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> Extraordinary</li>
 </ul>
 
-<a href="/">Click to go to main page</a>
+</div><!-- main foodieana jones -->
