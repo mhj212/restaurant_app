@@ -10,7 +10,8 @@
 }
 
 .nav_bar a {
-	font-family: 'Freckle Face', cursive;
+	font-family: 'Exo 2', sans-serif;
+	/*font-family: 'Freckle Face', cursive;*/
     text-decoration: none;
 	color: lightgray;
 }
@@ -308,6 +309,11 @@ body {
 
 @media (max-width: 500px) { 
   
+.main_favorites {
+	margin: 25px;
+	padding: 25px;
+}
+
 .main_favorites h1 {
     font-size: 18px;
 }
@@ -335,7 +341,13 @@ body {
 	/*background-color: white;*/
 	
 }
-
+@media (max-width: 730px) {
+ .main_guide h1 {
+    
+	font-size: 50px;
+	/*background-color: white;*/
+	}
+}
 
 /* devise */
 
@@ -351,3 +363,98 @@ body {
 .devise_main h2 {
    font-size: 40px;
 }
+
+
+/* Show2 */
+.main_show2_page {
+
+	margin: 50px;
+	padding: 50px, 100px, 50px, 100px;
+	background: rgba(0,0,0,0.6);
+	text-align: center;
+	font-family: 'Exo 2';
+	color: lightgray;
+	overflow: hidden;
+}
+
+
+.main_show2_page h1 {
+     font-size: 100px;
+}
+
+
+
+.main_show2_page h3 {
+     font-size:30px;
+}
+
+.main_show2_page h4 {
+	font-size: 40px;
+}
+
+.show2_total_rating h2 {
+  font-size: 60px;
+}
+
+.yelp_rating_show2 {
+   width: 24%;
+   float: left;
+}
+
+.yelp_rating_show2 h5 {
+	font-size: 30px;
+}
+
+.michelin_rating_show2 {
+	width: 24%;
+float: left;
+}
+
+.michelin_rating_show2 h5{
+	font-size: 30px;
+}
+
+.nyt_rating_show2 {
+	width: 24%;
+float: left;
+}
+
+.nyt_rating_show2 h5{
+	font-size: 30px;
+}
+
+.user_rating_show2 {
+	width: 24%;
+	float: left;
+}
+
+.user_rating_show2 h5{
+	font-size: 30px;
+}
+/*.rating_show2 {
+	width: 45%;
+	float: left;
+    display: inline;
+    font-size: 25px;
+    padding: 0px 0px 20px 0px;
+}
+
+.rating_show2 h3 {
+	font-size: 16px;
+}
+.rating_show2 h5 {
+	font-size: 16px;
+}
+
+
+.dishes_show2 {
+	width: 45%;
+	float: right;
+	display: inline;
+}
+
+.dishes_show2 h3 {
+	font-size: 30px;
+}*/
+
+

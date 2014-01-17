@@ -5,10 +5,14 @@ RestaurantProject::Application.routes.draw do
 get '/' => 'restaurants#index'
 get '/restaurants/search' => 'restaurants#search'
 get '/restaurants/show/:id' => 'restaurants#show'
+get '/restaurants/show2/:id' => 'restaurants#show2'
+
 post '/restaurants/create' => 'restaurants#create'
 post '/restaurants/create2' => 'restaurants#create'
 get '/restaurants/guide' => 'restaurants#guide'
 get '/restaurants/delete/:id' => 'restaurants#delete'
+
+
 
 get '/restaurants/deletedish/:id' => 'restaurants#deletedish'
 
