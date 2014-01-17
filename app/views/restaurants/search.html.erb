@@ -132,10 +132,10 @@
   <% if Restaurant.find_by_name(@restaurant_hash["businesses"][0]["name"]) == nil %>
    <h2>Add to favorite restaurants?</h2>
    <form action='/restaurants/create/' method="POST">
-   <br>
-   <input type="text" name="new_restaurant" value="<%= @restaurant_hash["businesses"][0]["name"] %>"><br>
+   
+   <input type="text" name="new_restaurant" value="<%= @restaurant_hash["businesses"][0]["name"] %>">
    <input type="text" name="new_rating" placeholder="On a scale of 0 to 10">
-   <input type="text" name="new_chef" placeholder="Chef Name"><br> 
+   <input type="text" name="new_chef" placeholder="Chef Name"><
   <button>Create</button> 
 
   <% else %>
