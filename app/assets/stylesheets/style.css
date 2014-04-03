@@ -15,6 +15,10 @@
     text-decoration: none;
 	color: lightgray;
 }
+
+.nav_bar a:hover {
+	color: white;
+}
 .links_bar {
 	float: right;
 	display: inline-block;
@@ -31,7 +35,7 @@
 
 .links_bar a:hover {
 	text-decoration: none;
-
+    color: white;
 }
 
 .devise_nav {

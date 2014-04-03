@@ -179,7 +179,7 @@
   </form>
 <% else %>
   
-  <h3>Featured Dish(es)</h3>
+  <h3>Favorite Dish(es)</h3>
   <% @restaurant.dishes.each do |dish|%>
   <a><%= dish.name %></a><a class="deletedish" href="/restaurants/deletedish/<%= dish.id %>">     delete</a><br>
   <% end %>
