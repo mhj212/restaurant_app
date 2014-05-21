@@ -330,6 +330,30 @@ body {
     font-size: 15px;
 }
 }
+
+@media (max-width: 600px){
+	.main_foodieana_jones {
+		width: 200px;
+	}
+}
+
+@media (max-width: 750px){
+	.main_search_page {
+		width: 300px;
+	}
+}
+
+@media (max-width: 780px){
+	.main_show2_page {
+		width: 690px;
+	}
+}
+
+@media (max-width: 630px){
+	.main_guide{
+		width: 270px;
+	}
+}
 /* GUIDE PAGE */
 
 .main_guide {
