@@ -354,6 +354,13 @@ body {
 		width: 270px;
 	}
 }
+
+@media (max-width: 670px){
+	.devise_main{
+		width: 250px;
+	}
+}
+
 /* GUIDE PAGE */
 
 .main_guide {
